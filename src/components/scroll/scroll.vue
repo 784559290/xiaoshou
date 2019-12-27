@@ -1,6 +1,6 @@
 <template>
     
-    <div id='wrapper' ref="scroll" >
+    <div class='wrapper' ref="scroll" >
         <div class="content">
             <slot></slot>
         </div>
@@ -68,7 +68,5 @@
 </script>
 
 <style scoped>
-    #wrapper{
 
-    }
 </style>

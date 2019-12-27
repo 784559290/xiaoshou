@@ -8,6 +8,9 @@
             <HomeSearch></HomeSearch>
             <TabControl class="Tab-Control"  ref="TabControl"></TabControl>
             <HomeHot></HomeHot>
+            <Homerecommendation/>
+                <Homeranking/>
+
             <!--<img src="666.png" @load="imageLoad">  @load vue事件监听图片加载完成，在滑动插件中执行从新计算高度-->
         </scroll>
         <scroll_top @click.native="scroll_top" v-show="top"></scroll_top>
@@ -23,6 +26,9 @@
     import HomeSearch from "@views/Home/childComps/HomeSearch";
     import {debounce} from "@/common/tool";
     import HomeHot from "@views/Home/childComps/HomeHot";
+    import Homerecommendation from "@views/Home/childComps/Homerecommendation";
+    import Homeranking from "@views/Home/childComps/Homeranking";
+
 
     export default {
         name: "Home",
@@ -36,7 +42,6 @@
                     speed: 600, //config参数同swiper4,与官网一致
                 },
                 banner: [],
-
                 BScroll: "",
                 top: false,
                 taboffsetTop: 0,
@@ -54,6 +59,7 @@
 
         },
         components: {
+            Homeranking,
             Navtop,
             Homeswiper,
             TabControl,
@@ -61,6 +67,7 @@
             scroll_top,
             HomeSearch,
             HomeHot,
+            Homerecommendation,
 
         },
         methods: {
@@ -136,7 +143,7 @@
     }
 
     .content {
-        height: calc(100% - 100px);
+        height: calc(100% - 50px);
         overflow: hidden;
 
     }
