@@ -5,6 +5,7 @@ const Home = () => import("@views/Home/Home");
 const About_index = () => import("@views/About/About-index");
 const Sort_index = () => import("@views/Sort/Sort-index");
 const Ranking_index = () => import("@views/Ranking/Ranking-index");
+const Search = () => import("@views/Search/Search");
 
 //安装路由插件
 Vue.use(Router)
@@ -12,11 +13,16 @@ Vue.use(Router)
 const routes = [
     {
         path:'/',
-        redirect:Home
+        redirect:'/Home',
+        component: Home
     },
     {
         path:'/Home',
         component: Home
+    },
+    {
+        path:'/Search',
+        component: Search
     },
     {
         path:'/About',

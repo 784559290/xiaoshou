@@ -3,7 +3,7 @@ import vuex from 'vuex'
 vue.use(vuex)
 const  store = new vuex.Store({
     state:{
-        //user:{}//用户详情
+        user:[]//用户详情
     },
     mutations:{//方法
         setdatauser(state,user){
@@ -15,22 +15,22 @@ const  store = new vuex.Store({
         deletedata(state,data){
             vue.delete(state,data)
         }
-
     },
     actions:{//异步系统监听
         Abou_aupa(context,data){
-
             context.commit('setdatauser',data)
-
         }
 
     },
     getters:{//计算熟悉
-
+        userlentgh(state){
+            return state.user.length
+        }
     },
     modules:{ //模块
 
-    }
+    },
+
 })
 
 export default  store

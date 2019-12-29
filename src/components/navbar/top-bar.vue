@@ -1,7 +1,7 @@
 <template>
     
     <div id='top-bar' class="">
-          <div> <slot  name="top_left"></slot></div>
+          <slot  name="top_left"></slot>
     </div>
 </template>
 
@@ -18,5 +18,8 @@
 </script>
 
 <style scoped>
-
+    #top-bar{
+        flex: 1;
+        text-align: center;
+    }
 </style>

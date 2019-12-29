@@ -11,12 +11,14 @@
         </button>
         <div>
             {{$store.state.user}}
+            <p>{{userlentgh}}</p>
         </div>
     </div>
 </template>
 
 <script>
 
+    import {mapGetters} from 'vuex'
     export default {
         name: "About-index",
         data(){
@@ -28,6 +30,9 @@
         },
         create(){
             this.user()
+        },
+        computed:{
+            ...mapGetters(['userlentgh'])
         },
         methods:{
             users(){
@@ -41,7 +46,7 @@
             steTime(){//异步修改store 让系统监听
                 const  thar=this
                 setTimeout(()=>{
-                    thar.$store.dispatch('Abou_aupa',thar.user)
+                    this.$store.dispatch('Abou_aupa',thar.user)
                 },1000)
 
             }

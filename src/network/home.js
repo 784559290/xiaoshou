@@ -4,3 +4,9 @@ export function getHomeMultidata() {
         url:'/home/multidata'
     })
 }
+
+export function getHomeMultidata1() {
+    return request({
+        url:'/home/multidata'
+    })
+}

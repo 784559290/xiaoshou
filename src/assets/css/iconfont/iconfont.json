@@ -1,0 +1,51 @@
+{
+  "id": "1582711",
+  "name": "vue 天天书院",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "93275",
+      "name": "排行",
+      "font_class": "paixing",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1239645",
+      "name": "排行",
+      "font_class": "paihang",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "1713578",
+      "name": "王冠",
+      "font_class": "wangguan",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "2407260",
+      "name": "搜索",
+      "font_class": "tubiao-",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "7466500",
+      "name": "书本、标签、记录",
+      "font_class": "huabanfuben",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "11238650",
+      "name": "热门",
+      "font_class": "bianpinghuatubiaosheji-",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    }
+  ]
+}

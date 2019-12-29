@@ -1,163 +1,143 @@
 <template>
     <div id="Home">
-        <Navtop class="home-nav navbar navbar-fixed-top"><div slot="top_center">Vue天下第一</div></Navtop>
-        <Homeswiper :banner="banner"/>
-        <TabControl class="Tab-Control" :title="homeTile"></TabControl>
-        <ui>
-            <li>列表1</li>
-            <li>列表2</li>
-            <li>列表3</li>
-            <li>列表4</li>
-            <li>列表5</li>
-            <li>列表6</li>
-            <li>列表7</li>
-            <li>列表8</li>
-            <li>列表9</li>
-            <li>列表10</li>
-            <li>列表11</li>
-            <li>列表12</li>
-            <li>列表13</li>
-            <li>列表14</li>
-            <li>列表15</li>
-            <li>列表16</li>
-            <li>列表17</li>
-            <li>列表18</li>
-            <li>列表19</li>
-            <li>列表20</li>
-            <li>列表21</li>
-            <li>列表22</li>
-            <li>列表23</li>
-            <li>列表24</li>
-            <li>列表25</li>
-            <li>列表26</li>
-            <li>列表27</li>
-            <li>列表28</li>
-            <li>列表29</li>
-            <li>列表30</li>
-            <li>列表31</li>
-            <li>列表32</li>
-            <li>列表33</li>
-            <li>列表34</li>
-            <li>列表35</li>
-            <li>列表36</li>
-            <li>列表37</li>
-            <li>列表38</li>
-            <li>列表39</li>
-            <li>列表40</li>
-            <li>列表41</li>
-            <li>列表42</li>
-            <li>列表43</li>
-            <li>列表44</li>
-            <li>列表45</li>
-            <li>列表46</li>
-            <li>列表47</li>
-            <li>列表48</li>
-            <li>列表49</li>
-            <li>列表50</li>
-            <li>列表51</li>
-            <li>列表52</li>
-            <li>列表53</li>
-            <li>列表54</li>
-            <li>列表55</li>
-            <li>列表56</li>
-            <li>列表57</li>
-            <li>列表58</li>
-            <li>列表59</li>
-            <li>列表60</li>
-            <li>列表61</li>
-            <li>列表62</li>
-            <li>列表63</li>
-            <li>列表64</li>
-            <li>列表65</li>
-            <li>列表66</li>
-            <li>列表67</li>
-            <li>列表68</li>
-            <li>列表69</li>
-            <li>列表70</li>
-            <li>列表71</li>
-            <li>列表72</li>
-            <li>列表73</li>
-            <li>列表74</li>
-            <li>列表75</li>
-            <li>列表76</li>
-            <li>列表77</li>
-            <li>列表78</li>
-            <li>列表79</li>
-            <li>列表80</li>
-            <li>列表81</li>
-            <li>列表82</li>
-            <li>列表83</li>
-            <li>列表84</li>
-            <li>列表85</li>
-            <li>列表86</li>
-            <li>列表87</li>
-            <li>列表88</li>
-            <li>列表89</li>
-            <li>列表90</li>
-            <li>列表91</li>
-            <li>列表92</li>
-            <li>列表93</li>
-            <li>列表94</li>
-            <li>列表95</li>
-            <li>列表96</li>
-            <li>列表97</li>
-            <li>列表98</li>
-            <li>列表99</li>
-            <li>列表100</li>
-        </ui>
+        <Navtop class="home-nav navbar navbar-fixed-top">
+            <span @click="log" slot="top_center">天天书院</span>
+        </Navtop>
+        <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">
+            <Homeswiper @swiperimageLoad.once="swiperimageLoad" :banner="banner"/>
+            <HomeSearch></HomeSearch>
+            <TabControl class="Tab-Control"  ref="TabControl"></TabControl>
+            <HomeHot></HomeHot>
+            <!--<img src="666.png" @load="imageLoad">  @load vue事件监听图片加载完成，在滑动插件中执行从新计算高度-->
+        </scroll>
+        <scroll_top @click.native="scroll_top" v-show="top"></scroll_top>
     </div>
 </template>
 <script>
-   import Navtop from '@components/navbar/NavBar'
-   import TabControl from "@components/tabControle/TabControl";
+    import Navtop from '@components/navbar/NavBar'
+    import TabControl from "@components/tabControle/TabControl";
+    import Homeswiper from "@views/Home/childComps/Homeswiper";
+    import scroll from "@components/scroll/scroll";
+    import scroll_top from "@components/scroll/scroll_top";
+    import {getHomeMultidata, getHomeMultidata1} from "@/network/home";
+    import HomeSearch from "@views/Home/childComps/HomeSearch";
+    import {debounce} from "@/common/tool";
+    import HomeHot from "@views/Home/childComps/HomeHot";
 
-   import Homeswiper from "@views/Home/childComps/Homeswiper";
-
-   import {getHomeMultidata} from "@/network/home";
-
-   export default {
+    export default {
         name: "Home",
-        data(){
+        data() {
             return {
-                swiperOption:{
+                swiperOption: {
                     slidesPerView: 'auto',
-                    centeredSlides:true,
+                    centeredSlides: true,
                     spaceBetween: 10,
-                    loop:true,
-                    speed:600, //config参数同swiper4,与官网一致
+                    loop: true,
+                    speed: 600, //config参数同swiper4,与官网一致
                 },
-                banner:[],
-                homeTile:['热门','完本','大神'],
+                banner: [],
+
+                BScroll: "",
+                top: false,
+                taboffsetTop: 0,
+                saveY: 0,
+                debounces: null
             }
         },
-        created(){
+        created() {
             this.getData()
+            this.debounces = debounce(()=>{
+                window.console.log('11111')
+            },500)
+        },
+        mounted() {//组件初始化完成调用方法
 
         },
-        components:{
+        components: {
             Navtop,
             Homeswiper,
             TabControl,
-        },
-        methods:{
-            getData() {//初始化数据
-                const  data =getHomeMultidata().then(res=>{
-                    this.banner = res.data.banner.list;
+            scroll,
+            scroll_top,
+            HomeSearch,
+            HomeHot,
 
+        },
+        methods: {
+            getData() {//初始化数据
+                getHomeMultidata().then(res => {
+                    this.banner = res.data.banner.list;
                 })
 
+            },
+            scroll_top() {
+                //点击返回顶部
+                this.$refs.scroll.scroll.scrollTo(0, 0, 600);
+            },
+            //滑动监听
+            contentscroll(position) {
+
+                this.top = position.y < -500
+                //this.saveY = position.y
+                if (position.y >= 0) {
+                  //  this.$refs.scroll.scroll.scrollTo(0, 0);
+                }
+            },
+            //上拉监听
+            pullUpLoad() {
+
+            },
+            log() {
+                this.debounces()
+            },
+            imageload() {
+                //this.$bus.$emit('image')  发射事件总线
+                //this.$bus.$on('image') 监听事件总线
+                //在 main.js 中添加 Vue.prototype.$bus  =new Vue();
+                //this.$refs.scroll.scroll.refresh() //从新计算滑动高度
+            },
+            //监听轮播组件图片加载完成
+            swiperimageLoad() {
+                this.taboffsetTop = this.$refs.TabControl.$el.offsetTop
+                window.console.log(this.taboffsetTop)
             }
+        },
+        activated() {
+            window.console.log('进入此组建调用')
+            //this.
+            //this.$refs.scroll.scroll.scrollTo(0, this.saveY)
+            this.$refs.scroll.refresh()
+        },
+        deactivated() {
+            window.console.log('离开此组建')
+            this.saveY = this.$refs.scroll.scroll.y
         }
     }
 </script>
 <style scoped>
     @import "~@assets/css/base.css";
-    .home-nav{
+
+    #Home {
+        height: 100vh;
+        width: 100%;
+        padding-top: var(--home-nav-back-height);
+        background-color: #f6f7f9;
+    }
+
+    .home-nav {
         background-color: var(--home-nav-back-colce);
         color: #ffffff;
+        height: 44px!important;
     }
-    .Tab-Control{
+
+    .Tab-Control {
         position: sticky;
         top: 50px;
+    }
+
+    .content {
+        height: calc(100% - 100px);
+        overflow: hidden;
+
     }
 </style>

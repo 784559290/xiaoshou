@@ -5,5 +5,14 @@ body{
 }
 
 :root{
-    --home-nav-back-colce: rgba(170, 224, 244);
+    --home-nav-back-colce: rgb(246, 247, 249);
+    --home-nav-back-height: 44px;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
 }
