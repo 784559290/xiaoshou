@@ -9,7 +9,12 @@
             <TabControl class="Tab-Control"  ref="TabControl"></TabControl>
             <HomeHot></HomeHot>
             <Homerecommendation/>
-                <Homeranking/>
+            <Homeranking/>
+            <Homerecommend2/>
+            <module>
+            </module>
+
+
 
             <!--<img src="666.png" @load="imageLoad">  @load vue事件监听图片加载完成，在滑动插件中执行从新计算高度-->
         </scroll>
@@ -28,6 +33,8 @@
     import HomeHot from "@views/Home/childComps/HomeHot";
     import Homerecommendation from "@views/Home/childComps/Homerecommendation";
     import Homeranking from "@views/Home/childComps/Homeranking";
+    import Homerecommend2 from "@views/Home/childComps/Homerecommend2";
+    import Module from "@views/Home/childComps/module";
 
 
     export default {
@@ -59,6 +66,8 @@
 
         },
         components: {
+            Module,
+            Homerecommend2,
             Homeranking,
             Navtop,
             Homeswiper,

@@ -34,6 +34,13 @@
       "unicode_decimal": 58964
     },
     {
+      "icon_id": "3005659",
+      "name": "稿件-作者",
+      "font_class": "gaojian-zuozhe",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
       "icon_id": "7466500",
       "name": "书本、标签、记录",
       "font_class": "huabanfuben",

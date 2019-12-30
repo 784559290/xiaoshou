@@ -20,9 +20,18 @@
             pullup:{
                 type:Boolean,
                 default:false
+            },
+            scrollX:{
+                type:Boolean,
+                default:true
+            },
+            freeScroll:{
+                type:Boolean,
+                default:true
             }
         },
         created() {
+            window.console.log(this.scrollX)
         },
         mounted(){
             //创建插件
@@ -38,6 +47,10 @@
                 probeType:3,
                 click:true,
                 pullUpLoad: pullUpLoad,//是否监听上拉事件
+                scrollX:this.scrollX,
+                freeScroll:this.freeScroll,
+                eventPassthrough:'horizontal',
+                topbot: false,
             })
             //2监听滚动事件  把数据传递到父组件
             this.scroll.on('scroll',(position)=>{

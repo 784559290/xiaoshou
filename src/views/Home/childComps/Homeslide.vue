@@ -1,16 +1,16 @@
 <template>
     
     <div id='Homeslide'>
-        <ol class="module-slide-ol">
-            <li class=" slide-ol"  v-for="(item,index) in recommend">
+        <div class="module-slide-ol">
+            <div class=" slide-ol"  v-for="(item,index) in recommend">
                 <a class="slide-ol-a" href="">
                     <img class="slide-ol-img" :src="item.img" alt="">
                     <figcaption class="slide-ol-span" >
                         {{item.name}}
                     </figcaption>
                 </a>
-            </li>
-        </ol>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -21,7 +21,12 @@
             return {
             }
         },
-        props:['recommend'],
+        props:{
+            recommend:{
+                type:Array,
+                default:[]
+            }
+        },
         created() {
         },
         methods: {}
@@ -30,7 +35,7 @@
 
 <style scoped>
     #Homeslide{
-        width: 500px;
+
     }
     .module-slide-ol{
         position: relative;
@@ -39,7 +44,7 @@
         min-height: 172px;
         padding-left: 8px;
         white-space: nowrap;
-        width: 500px;
+       width: auto;
     }
     .slide-ol{
         width: 82px;

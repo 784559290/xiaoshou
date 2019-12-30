@@ -1,12 +1,10 @@
 <template>
-    <div id='Homeranking'>
-        <!--首页title-->
+    
+    <div id='Homerecommend2'>
         <Hometitle :homttitle="Homttitle"></Hometitle>
-        <!-- 小说选择栏-->
         <Homeclassification :fictionsort="Fictionsort"></Homeclassification>
-        <!--小说推荐循环-->
         <scroll class="content" ref="scroll"  :pullup="false" :scrollX="true">
-          <Homeslide :recommend="recommend"></Homeslide>
+            <Homeslide :recommend="recommend"></Homeslide>
         </scroll>
     </div>
 </template>
@@ -14,22 +12,22 @@
 <script>
     import Hometitle from "@views/Home/childComps/Hometitle";
     import Homeclassification from "@views/Home/childComps/Homeclassification";
-    import Homeslide from "@views/Home/childComps/Homeslide";
     import Scroll from "@components/scroll/scroll";
+    import Homeslide from "@views/Home/childComps/Homeslide";
 
     export default {
-        name: "Homeranking",
-        components: {Scroll, Homeslide, Homeclassification, Hometitle},
+        name: "Homerecommend2",
+        components: {Scroll, Homeclassification, Hometitle,Homeslide},
         data() {
             return {
                 Homttitle: {
-                    title: "热门小说",
+                    title: "高分小说",
                     Description: ""
                 },
-                Fictionsort: [
-                    '奇幻玄幻',
-                    '武侠修仙',
-                    '都市职场',
+                Fictionsort:[
+                    '历史军事',
+                    '游戏体育',
+                    '科幻悬疑',
                 ],
                 recommend: [
                     {
@@ -64,9 +62,7 @@
 </script>
 
 <style scoped>
-    #Homeranking {
-        height: 259px;
-        margin: 12px 0;
-        background-color: #fff;
-    }
+  #Homerecommend2{
+      background-color: #fff;
+  }
 </style>
