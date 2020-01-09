@@ -4,8 +4,10 @@ import router from "@/router";
 import store from '@/store'
 import VueLazy from 'vue-lazyload'
 import BootstrapVue from "bootstrap-vue";
+import ElementUI from 'element-ui'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'element-ui/lib/theme-chalk/index.css';
 
 
 import '@assets/css/iconfont/iconfont.js'
@@ -19,6 +21,7 @@ Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
+Vue.use(ElementUI)
 
 Vue.prototype.$bus  =new Vue();
 
