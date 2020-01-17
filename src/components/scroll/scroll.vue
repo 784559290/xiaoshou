@@ -23,15 +23,18 @@
             },
             scrollX:{
                 type:Boolean,
-                default:true
+                default:false
             },
             freeScroll:{
                 type:Boolean,
                 default:true
+            },
+            eventPassthrough:{
+                type:String,
+                default:'horizontal'
             }
         },
         created() {
-            window.console.log(this.scrollX)
         },
         mounted(){
             //创建插件
@@ -49,7 +52,7 @@
                 pullUpLoad: pullUpLoad,//是否监听上拉事件
                 scrollX:this.scrollX, //开启横向滚动
                 freeScroll:this.freeScroll,
-                eventPassthrough:'horizontal', //开启原生横向滚动
+                eventPassthrough:this.eventPassthrough, //开启原生横向滚动
                 topbot: false,
             })
             //2监听滚动事件  把数据传递到父组件

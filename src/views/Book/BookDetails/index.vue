@@ -54,17 +54,52 @@
         </div>
 
         <div class="Explain">
-            <div class="Explain-1"></div>
+            <div class="Explain-1">
+                孟陆有点慌，他穿越了，还穿成了西游中的虎力大仙，最终惨死在孙悟空手中的三个霉憨憨之一，好在，随身激活了神奇的诸天群。只是，为啥群里都是一群弱逼，还整天想着抱大腿。九叔：小道今日得见大仙，朝闻道夕死可矣（激动）秦始皇：大仙在上，寡人愿付一国力，但求长生法。古三通：大仙，大仙，您渴不，您饿不，您说您缺点啥？群主：夭寿啦，夭寿啦，大难临头了，大仙，救命啊！为了将来怼翻那头臭猴子，也为了应付群里一群的憨蛋蛋，最终，孟陆下了个决定：散吾神名，铸吾神像，布道万界，封神诸天！
+                <span class="book-summary-more">
+                <svg class="icon svg-icon" aria-hidden="true">
+                <use xlink:href="#icon-xia"></use>
+                </svg>
+            </span>
+            </div>
+
+
         </div>
+        <div class="Catalog">
+            <el-row>
+                <el-col :span="6"><div class="grid-content bg-purple">目录</div></el-col>
+                <el-col :span="12"><div class="grid-content bg-purple-light">第一章</div></el-col>
+            </el-row>
+        </div>
+        <div class="catelogX">
+            <div class="module-header">
+                <el-row>
+                    <el-col :span="12"><div class="grid-content bg-purple "><h4 class="total">共100章</h4></div></el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple"><h4 class="just">倒叙</h4></div></el-col>
+                </el-row>
+            </div>
+            <BookCatalog></BookCatalog>
+        </div>
+
     </div>
+
+
 </template>
 
 <script>
+    import BookCatalog from "@views/Book/BookDetails/BookCatalog";
     export default {
         name: "index",
+        components: {BookCatalog},
         data() {
             return {
-                score:5
+                score:5,
+                tableData:[
+                    {
+                        chapter:'第一章',
+                        name:'天王盖地虎'
+                    }
+                ]
             }
         },
         created() {
@@ -183,6 +218,63 @@
     }
 
     .Explain-1{
-       margin: 16px;
+        margin: 16px;
+        border-top: #cfcfcf solid 1px;
+
+        line-height: 23px;
+        padding-top: 20px;
+
+        color: rgb(51, 55, 61);
+        font-size: 14px;
+        height: 126px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 0;
+        position: relative;
+    }
+    .book-summary-more{
+        position: absolute;
+        right: 1px;
+        top: 110px;
+        color: #969ba3;
+        font-size: 25px;
+        background-color: rgba(255,255,255,0.5);
+    }
+
+    .Catalog{
+        border-top: #cfcfcf solid 1px;
+        height: 45px;
+        line-height: 45px;
+
+        margin: 20px 16px 0 16px;
+    }
+    .bg-purple{
+        font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        font-size: 18px;
+    }
+    .bg-purple-light{
+        color: #606266;
+        font-family: "PingFang SC","微软雅黑",Arial,sans-serif;
+        font-size: 12px;
+    }
+
+    .catelogX{
+        margin: 0 16px;
+        border-top: #cfcfcf solid 1px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+    }
+    .total{
+        font-size: 14px;
+        padding-left: 10px;
+    }
+    .just{
+        font-size: 14px;
+        text-align: right;
+        padding-right: 20px;
+    }
+
+
+    .Catalog{
+
     }
 </style>
