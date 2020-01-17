@@ -52,6 +52,10 @@
             <div>加入书架</div>
             <div>赞</div>
         </div>
+
+        <div class="Explain">
+            <div class="Explain-1"></div>
+        </div>
     </div>
 </template>
 
@@ -172,5 +176,13 @@
     }
     .book-detail-btn div:nth-child(3){
         margin-left: 20px;
+    }
+
+    .Explain{
+
+    }
+
+    .Explain-1{
+       margin: 16px;
     }
 </style>
