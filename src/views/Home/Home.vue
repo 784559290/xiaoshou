@@ -19,6 +19,8 @@
             <!--<img src="666.png" @load="imageLoad">  @load vue事件监听图片加载完成，在滑动插件中执行从新计算高度-->
         </scroll>
         <scroll_top @click.native="scroll_top" v-show="top"></scroll_top>
+        <tab-bar>
+        </tab-bar>
     </div>
 </template>
 <script>
@@ -35,7 +37,7 @@
     import Homeranking from "@views/Home/childComps/Homeranking";
     import Homerecommend2 from "@views/Home/childComps/Homerecommend2";
     import Module from "@views/Home/childComps/module";
-
+    import TabBar from "@components/Base/Tab-bar";
 
     export default {
         name: "Home",
@@ -77,6 +79,7 @@
             HomeSearch,
             HomeHot,
             Homerecommendation,
+            TabBar,
 
         },
         methods: {
