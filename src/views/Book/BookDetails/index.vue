@@ -1,7 +1,7 @@
 <template>
 
     <div id='index'>
-        <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="false" @pullUpLoad="pullUpLoad">
+
         <header class="header">
 
             <div @click="backlink">
@@ -28,7 +28,7 @@
                 </span>
             </div>
         </header>
-
+        <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="false" @pullUpLoad="pullUpLoad">
         <div class="book-layout">
             <img class="pull-left"  src="@assets/img/home/300.jpg" alt="">
             <div class="book-cell pull-left">
@@ -81,6 +81,8 @@
                 <BookCatalog :boocklist="boocklistarr"></BookCatalog>
             </div>
         </scroll>
+        <scroll_top @click.native="scroll_top" v-show="top"></scroll_top>
+
     </div>
 
 
@@ -90,15 +92,17 @@
     import BookCatalog from "@views/Book/BookDetails/BookCatalog";
     import scroll from "@components/scroll/scroll";
     import {CatalogApi} from '@/network/Novel'
+    import scroll_top from "@components/scroll/scroll_top";
 
     export default {
         name: "index",
-        components: {scroll, BookCatalog},
+        components: {scroll, BookCatalog,scroll_top},
         data() {
             return {
                 noid:3,
                 boocklistarr:[],
                 score:5,
+                top:false
             }
         },
         created() {
@@ -113,6 +117,7 @@
             contentscroll(position) {
 
                 this.top = position.y < -500
+                console.log( position)
                 //this.saveY = position.y
                 if (position.y >= 0) {
                     //  this.$refs.scroll.scroll.scrollTo(0, 0);
@@ -296,7 +301,6 @@
         margin: 0 16px;
         border-top: #cfcfcf solid 1px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-        height: 400px;
     }
 
 
@@ -306,7 +310,7 @@
     }
 
     .content {
-        height: 100%;
+        height: 100vh;
         overflow: hidden;
 
     }
