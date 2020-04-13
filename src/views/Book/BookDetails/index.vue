@@ -1,14 +1,17 @@
 <template>
 
     <div id='index'>
+        <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="false" @pullUpLoad="pullUpLoad">
         <header class="header">
-            <div>
+
+            <div @click="backlink">
                  <span>
                      <svg class="icon svg-icon" aria-hidden="true">
                         <use xlink:href="#icon-withdraw"></use>
                      </svg>
                 </span>
             </div>
+
             <div>大王饶命</div>
             <div>
                 <span>
@@ -25,6 +28,7 @@
                 </span>
             </div>
         </header>
+
         <div class="book-layout">
             <img class="pull-left"  src="@assets/img/home/300.jpg" alt="">
             <div class="book-cell pull-left">
@@ -47,8 +51,9 @@
             </div>
 
         </div>
+
         <div class="book-detail-btn">
-            <div>开始阅读</div>
+            <router-link to="/Read" tag="div">开始阅读</router-link>
             <div>加入书架</div>
             <div>赞</div>
         </div>
@@ -71,16 +76,11 @@
                 <el-col :span="12"><div class="grid-content bg-purple-light">第一章</div></el-col>
             </el-row>
         </div>
-        <div class="catelogX">
-            <div class="module-header">
-                <el-row>
-                    <el-col :span="12"><div class="grid-content bg-purple "><h4 class="total">共100章</h4></div></el-col>
-                    <el-col :span="12"><div class="grid-content bg-purple"><h4 class="just">倒叙</h4></div></el-col>
-                </el-row>
-            </div>
-            <BookCatalog></BookCatalog>
-        </div>
 
+            <div class="catelogX">
+                <BookCatalog :boocklist="boocklistarr"></BookCatalog>
+            </div>
+        </scroll>
     </div>
 
 
@@ -88,23 +88,57 @@
 
 <script>
     import BookCatalog from "@views/Book/BookDetails/BookCatalog";
+    import scroll from "@components/scroll/scroll";
+    import {CatalogApi} from '@/network/Novel'
+
     export default {
         name: "index",
-        components: {BookCatalog},
+        components: {scroll, BookCatalog},
         data() {
             return {
+                noid:3,
+                boocklistarr:[],
                 score:5,
-                tableData:[
-                    {
-                        chapter:'第一章',
-                        name:'天王盖地虎'
-                    }
-                ]
             }
         },
         created() {
+            this.getCatalog()
         },
-        methods: {}
+        methods: {
+            //后退
+            backlink(){
+                window.history.back()
+            },
+            //滑动监听
+            contentscroll(position) {
+
+                this.top = position.y < -500
+                //this.saveY = position.y
+                if (position.y >= 0) {
+                    //  this.$refs.scroll.scroll.scrollTo(0, 0);
+                }
+            },
+            //上拉监听
+            pullUpLoad() {
+
+            },
+            scroll_top() {
+                //点击返回顶部
+                this.$refs.scroll.scroll.scrollTo(0, 0, 600);
+            },
+            getCatalog() {
+                var data = {noid: this.noid}
+                CatalogApi(data).then(res => {
+                    if (res.status == 0) {
+                        this.boocklistarr = res.data.reverse()
+                        console.log(this.boocklistarr)
+                        this.$refs.scroll.scroll.refresh()
+                    }
+                })
+
+            },
+
+        }
     }
 </script>
 
@@ -261,20 +295,20 @@
     .catelogX{
         margin: 0 16px;
         border-top: #cfcfcf solid 1px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        height: 400px;
     }
-    .total{
-        font-size: 14px;
-        padding-left: 10px;
-    }
-    .just{
-        font-size: 14px;
-        text-align: right;
-        padding-right: 20px;
-    }
+
 
 
     .Catalog{
 
     }
+
+    .content {
+        height: 100%;
+        overflow: hidden;
+
+    }
+
 </style>
