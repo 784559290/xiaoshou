@@ -11,7 +11,9 @@
             </el-row>
         </div>
         <ol class="Catalog">
-            <li v-for=" (item,index) in  boocklist">{{item.chapterName}}</li>
+            <li v-for=" (item,index) in  boocklist" @click="getRead(item.chid)">
+                {{item.chapterName}}
+            </li>
         </ol>
     </div>
 </template>
@@ -48,7 +50,9 @@
             ClickFlashback(){
                 this.Flashback = this.Flashback==='倒叙' ? '正叙': '倒叙';
                 this.boocklist = this.boocklist.reverse()
-
+            },
+            getRead(chid){
+                this.$router.push({path:'/Read',query:{chid:chid}})
             }
         }
     }

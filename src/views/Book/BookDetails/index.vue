@@ -12,7 +12,7 @@
                 </span>
             </div>
 
-            <div>大王饶命</div>
+            <div>{{BookData.noName}}</div>
             <div>
                 <span>
                      <svg class="icon svg-icon" aria-hidden="true">
@@ -28,13 +28,13 @@
                 </span>
             </div>
         </header>
-        <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="false" @pullUpLoad="pullUpLoad">
+
         <div class="book-layout">
-            <img class="pull-left"  src="@assets/img/home/300.jpg" alt="">
+            <img class="pull-left" :src="BookData.coverimg"   alt="">
             <div class="book-cell pull-left">
-                <h2 class="book-title">大王饶命</h2>
+                <h2 class="book-title">{{BookData.naName}}</h2>
                 <div class="book-author">
-                    <a href="">会说话的肘子</a>
+                    <a href="">{{BookData.noNickName}}</a>
                     <span>大神</span>
                 </div>
                 <div class="book-equally">
@@ -60,7 +60,7 @@
 
         <div class="Explain">
             <div class="Explain-1">
-                孟陆有点慌，他穿越了，还穿成了西游中的虎力大仙，最终惨死在孙悟空手中的三个霉憨憨之一，好在，随身激活了神奇的诸天群。只是，为啥群里都是一群弱逼，还整天想着抱大腿。九叔：小道今日得见大仙，朝闻道夕死可矣（激动）秦始皇：大仙在上，寡人愿付一国力，但求长生法。古三通：大仙，大仙，您渴不，您饿不，您说您缺点啥？群主：夭寿啦，夭寿啦，大难临头了，大仙，救命啊！为了将来怼翻那头臭猴子，也为了应付群里一群的憨蛋蛋，最终，孟陆下了个决定：散吾神名，铸吾神像，布道万界，封神诸天！
+                {{BookData.introduce}}
                 <span class="book-summary-more">
                 <svg class="icon svg-icon" aria-hidden="true">
                 <use xlink:href="#icon-xia"></use>
@@ -73,10 +73,10 @@
         <div class="Catalog">
             <el-row>
                 <el-col :span="6"><div class="grid-content bg-purple">目录</div></el-col>
-                <el-col :span="12"><div class="grid-content bg-purple-light">第一章</div></el-col>
+                <el-col :span="15"><div class="grid-content bg-purple-light">{{maxboocklistarr.chapterName}}</div></el-col>
             </el-row>
         </div>
-
+        <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="false" @pullUpLoad="pullUpLoad">
             <div class="catelogX">
                 <BookCatalog :boocklist="boocklistarr"></BookCatalog>
             </div>
@@ -91,7 +91,7 @@
 <script>
     import BookCatalog from "@views/Book/BookDetails/BookCatalog";
     import scroll from "@components/scroll/scroll";
-    import {CatalogApi} from '@/network/Novel'
+    import {CatalogApi,BookDastApi} from '@/network/Novel'
     import scroll_top from "@components/scroll/scroll_top";
 
     export default {
@@ -102,10 +102,14 @@
                 noid:3,
                 boocklistarr:[],
                 score:5,
-                top:false
+                top:false,
+                BookData:{},
+                maxboocklistarr:{}
             }
         },
         created() {
+
+            this.BookDastAjax()
             this.getCatalog()
         },
         methods: {
@@ -117,7 +121,6 @@
             contentscroll(position) {
 
                 this.top = position.y < -500
-                console.log( position)
                 //this.saveY = position.y
                 if (position.y >= 0) {
                     //  this.$refs.scroll.scroll.scrollTo(0, 0);
@@ -136,13 +139,21 @@
                 CatalogApi(data).then(res => {
                     if (res.status == 0) {
                         this.boocklistarr = res.data.reverse()
-                        console.log(this.boocklistarr)
+                        console.log(this.boocklistarr.length)
+                        this.maxboocklistarr =this.boocklistarr[0]
                         this.$refs.scroll.scroll.refresh()
                     }
                 })
 
             },
-
+            BookDastAjax(){
+                var data = {noid: this.noid}
+                BookDastApi(data).then(res =>{
+                    if (res.status == 0) {
+                        this.BookData = res.data
+                    }
+                })
+            }
         }
     }
 </script>
@@ -265,7 +276,7 @@
 
         color: rgb(51, 55, 61);
         font-size: 14px;
-        height: 126px;
+        height: 100px;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-bottom: 0;
@@ -274,7 +285,7 @@
     .book-summary-more{
         position: absolute;
         right: 1px;
-        top: 110px;
+        top: 80px;
         color: #969ba3;
         font-size: 25px;
         background-color: rgba(255,255,255,0.5);
@@ -312,7 +323,7 @@
     .content {
         height: 100vh;
         overflow: hidden;
-
+        width: 100%;
     }
 
 </style>

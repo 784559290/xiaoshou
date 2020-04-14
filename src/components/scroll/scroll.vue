@@ -9,6 +9,7 @@
 
 <script>
     import BScroll from 'better-scroll' //引入上拉滑动加载js插件
+
     export default {
         name: "scroll",
         data() {
@@ -35,12 +36,13 @@
             }
         },
         created() {
+
         },
         mounted(){
             //创建插件
             if (this.pullup){
                 var pullUpLoad = {
-                    threshold: 20 // 当上拉距离超过30px时触发 pullingUp 事件
+                    threshold: 55 // 当上拉距离超过30px时触发 pullingUp 事件
                 }
             }else {
                 var pullUpLoad =false
@@ -68,6 +70,7 @@
         methods: {
             //上拉加载完成以后需要调用一下才可以继续加载
             scfinishFlush(){
+
                 this.scroll &&  this.scroll.finishFlush()
             },
             scroll_top(x=0,y=0,time=600){

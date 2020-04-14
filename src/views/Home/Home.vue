@@ -13,9 +13,6 @@
             <Homerecommend2/>
             <module>
             </module>
-
-
-
             <!--<img src="666.png" @load="imageLoad">  @load vue事件监听图片加载完成，在滑动插件中执行从新计算高度-->
         </scroll>
         <scroll_top @click.native="scroll_top" v-show="top"></scroll_top>

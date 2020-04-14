@@ -1,7 +1,7 @@
 <template>
     <div class="Read-index">
         <header class="Readheader">
-            <h1>第一章 穿越西游，虎力大仙</h1>
+            <h1>{{current.chapterName}}</h1>
         </header>
 <!--        <header>-->
 <!--            <el-row class="hide-headdiv">-->
@@ -29,67 +29,9 @@
 <!--            </el-row>-->
 <!--        </header>-->
         <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">
-            <section class="read-section jsChapterWrapper" data-chapter-id="506575588">
-                <h3>第一章 穿越西游，虎力大仙</h3>
-                <p>　　西游世界，车迟国，三清殿，外阁。</p>
-                <p>　　某一刻，无量仙光迸发，神威浩荡，伟力覆盖大半个城都。</p>
-                <p>　　无数民众，上到官家贵人，下到普通百姓，无不狂热的跪倒在地，对着那仙光迸发之地虔诚拜服，口中赞颂大仙之名。</p>
-                <p>　　三清殿外阁之中，有仙神意志复苏，疑惑询问道：“师兄为什么神力异动，可是有大事发生？”</p>
-                <p>　　不多久，有沉吟的声音回应道：“无事，师弟无须担心。”</p>
-                <p>　　“如此便好，若是师兄有事，切记勿忘吾与羊力还在。”声音不重不大，却自有一种真诚。</p>
-                <p>　　良久，之前的声音才回复道“好。”</p>
-                <p>　　随着后一道仙神意志沉寂下去，外界滔天异景归于平静，逐渐安静下来的三清殿外阁中，露出三道身影。</p>
-                <p>　　一道威严莫名，一道神秘诡异，一道神莹内敛。</p>
-                <p>　　不知过了多久，那正中间之人，微不可查的叹了一口气，神色异样。</p>
-                <p>　　孟陆的心情相当复杂，不久之前，他还只是个苦逼的打工仔，每天承受着朝五晚九的苦逼工作，一边和同行之间蝇营狗苟，一边无力的肩抗着越来越重的压力。</p>
-                <p>　　直到一个醉酒的司机老眼一花，撞向一个花样少女，也不知是良心发作，抑或是已经受够了这种沉重的日子，孟陆一咬牙冲了上去。</p>
-                <p>　　模糊只记得鲜血四溅，染沫了视野。</p>
-                <p>　　等到再度恢复意识之时，诡异的情况，让孟陆心情久久无法平复。</p>
-                <p>　　他穿越了，穿越到一个十分熟悉的世界-西游世界。</p>
-                <p>　　而所穿越附身之人，还是个小有名气的角色，只是这名气，并没有让孟陆有任何舒心的地方。</p>
-                <p>　　西游记九九八十一难，有一难，是说在三师徒途径一个国家的时候，遇到了国主昏庸，扬道抑佛，整个国家，打压和尚，只支持道家，甚至认三个道术有成的妖怪，为一国国师。</p>
-                <p>　　而那三位妖怪国师，一为黄毛虎所化，自号虎力大仙；一为白角鹿所化，自号鹿力大仙；一为羚羊精所化，自号羊力大仙，合称车迟国三仙。</p>
-                <p>　　如今孟陆此时所附身之人，正是这车迟国三仙中的老大虎力大仙，之前一时心神震动，导致神力迸发，也皆是源此。</p>
-                <p>　　前世碌碌半生，今世转生为仙，受万千香火，按理说应该是一场大造化。</p>
-                <p>　　但是一想到，不久之后三仙将被那孙悟空一行一个个弄死，孟陆就怎么也开心不起来。</p>
-                <p>　　说实话，前世看原著的时候还没什么感觉，今世换一个角度来看，车迟国三仙真不是一般的可怜。</p>
-                <p>　　三仙，成仙之前同于终南山修行，学的是最正统的道家仙术，得道之后，既没有上天入个仙籍，也没有占山做个大王，反而是回到自己出生之地车迟国，做一方国师，纳一方香火。</p>
-                <p>　　道家有仙、神二道，仙之道，纳天地之灵气，吸日月之精华，行于三界而周走五天，求的是一个大自在，大逍遥，而神之道，受万民香火，庇护一方太平。</p>
-                <p>　　香火有毒，受香火者若香火有失，则滔天修为一朝尽散，所以有真传道统之辈，大多修仙道，蔑神道。</p>
-                <p>　　虽然如今神道亦有大能，但那大多数封神量劫之中身死道消，不得已才转入神道，受困于天庭，作为驱使。</p>
-                <p>　　真正愿意修习神道者，多是些茅草杂神，来路不明之辈，或是身前有功德，死后为神。</p>
-                <p>　　车迟国三仙，有真正的道统，求学之时，拜的是正财神赵公明麾下。</p>
-                <p>　　这财神赵公明，那是真正的上古大神通，车迟三仙自然没资格求见，不过赵公明有一坐骑，乃是成神得道的黑虎，亦是虎力大仙同族，如此才有了个渊源，得一成道之机。</p>
-                <p>　　作为道门正统，三仙自然可以学习仙道，但三仙有大毅力，最后学的却是神道，选择了纳香火，庇护一方太平。</p>
-                <p>　　虽然是妖族出身，但是称一句有道高人，那是绝对不过分的。</p>
-                <p>　　自三仙入车迟国，打杀魔物旱魃，施法求雨，建三清殿，传道一方，妥妥的正面存在。</p>
-                <p>　　唯一做的有些让人不忿之处，也不过是打压佛门，佛道本就不融，道家之人打压佛门再正常不过。</p>
-                <p>　　而即便如此，也不曾伤及僧人性命，只是让他们去做些苦力。</p>
-                <p>　　最后的结果呢，西游大劫，佛教当兴，就因为打压佛门，三个真正庇护一方的大仙就那么身死魂灭，连全尸都剩。</p>
-                <p>　　有人或许说是三仙自作孽，但若不是孙悟空欺人太甚，偷吃贡品，以猴尿侮辱三仙，三仙又怎么可能要和对方拼个你死我活。</p>
-                <p>　　说不上愿谁怪谁，只能是时也命也。</p>
-                <p>　　但是如今孟陆附身于虎力大仙，却不愿意就此认命。</p>
-                <p>　　当然，立马逃离是不行的，三仙受车迟国香火，若是就此离去必然香火尽失，一身修为化为乌有。</p>
-                <p>　　西游世界可不是个太平世界了，没有修为，照样是死路一条。</p>
-                <p>　　逃也不行，斗又斗不过，接下来的路，不好走啊。</p>
-                <p>　　孟陆目光幽幽，陷入了沉思。</p>
-                <p>　　忽然，一道机械化的声音，猛然自孟陆耳边乍响。</p>
-                <p>　　“有缘者，是否加入诸天群？”</p>
-                <p>　　“是？否？”</p>
-                <p>　　孟陆目光一震，强压着差点再度沸腾起来的神力，心神一变再变。</p>
-                <p>　　身为一个穿越者，孟陆前世看过的网文之流并不少，这诸天群一类，曾一度相当红火，他又怎么不知道。</p>
-                <p>　　“或许，这是一个机会。”孟陆目光忽然亮了起来。</p>
-                <p>　　诸天群，诸天之群，连通诸天，或许，其中能够见到一些禁忌大神，无敌大帝，若是再设法学到个一两手，镇压孙悟空也并非不可能。</p>
-                <p>　　毕竟，这具身体内具备的力量并不弱，和孙悟空的差距，没有想象中那么大。</p>
-                <p>　　想到这里，孟陆几乎毫不犹豫的选择了是。</p>
-                <p>　　下一刻，神秘的声音再起。</p>
-                <p>　　“请选择昵称。”</p>
-                <p>　　这一次，孟陆没了那么果断。</p>
-                <p>
-                    　　“前世看过的那些聊天群文，其中的管理员或者群主大多也是穿越者，知道各种世界的情况，我若用自己本名，虽然安全了一些，但或许并不被看中，但是若用虎力大仙为名，必然会被对方知道一些自身情况，这并不好，若是再因此被对方看出些什么，更是得不偿失。”</p>
-                <p>　　稍微寻思了一下，孟陆给自己起了一个昵称：仙</p>
-                <p>　　既不寻常，也绝对不普通。</p>
-                <p>　　</p>
+            <section class="read-section jsChapterWrapper" v-for=" (item,index) in  content" >
+                <p class="bs-popover-auto">{{item.chapterName}}</p>
+                <div v-html="item.chapterContent"></div>
             </section>
         </scroll>
 
@@ -98,20 +40,51 @@
 
 <script>
     import Scroll from "@components/scroll/scroll";
+    import {NocontentApi} from '@/network/Novel'
 
     export default {
         name: "Read-index",
         data() {
-            return {}
+            return {
+                content:[],
+                chid:'',
+                upper:{},
+                lower:{},
+                current:{}
+            }
         },
         components: {Scroll},
+        created() {
+            this.chid =this.$route.query.chid
+        },
+        mounted() {
+            window.console.log('进入此组建调用')
+            this.getNocontent()
+            //this.$refs.scroll.scroll.refresh()
+        },
         methods: {
             contentscroll(position) {
 
             },
             pullUpLoad() {
-
+                this.chid = this.lower.chid;
+                this.getNocontent();
             },
+            getNocontent(){
+                var data = {chid:this.chid}
+                NocontentApi(data).then(res => {
+                    if (res.status == 0){
+                        this.content.push(res.data.content);
+                        this.current = res.data.content;
+                        this.upper = res.data.upper;
+                        this.lower = res.data.lower;
+                        this.$refs.scroll.scroll.refresh()
+                        this.$refs.scroll.scfinishFlush()
+
+                    }
+                })
+            },
+
             back_link(){
                 window.history.back()
             }
@@ -122,7 +95,7 @@
 <style scoped>
     .Read-index {
         background-color: #c4b395;
-        background-image: url("~@assets/img/Book/skin-default.e5975.jpg");
+        /*background-image: url("~@assets/img/Book/skin-default.e5975.jpg");*/
         width: 100%;
         height: 100vh;
         font-size: 18px;
@@ -139,12 +112,18 @@
     }
 
     .Readheader {
-        background: url("~@assets/img/Book/skin-default.e5975.jpg") no-repeat center top;
-        background-size: 100%;
+
+
         height: 25px;
         line-height: 25px;
     }
 
+    .jsChapterWrapper{
+/*
+        background: url("~@assets/img/Book/skin-default.e5975.jpg") no-repeat center top;
+*/
+        background-size: 100%;
+    }
     .read-section {
         margin: 0 16px;
     }
