@@ -3,17 +3,17 @@
     <header id='NavBar' class="navbar navbar-fixed-top nav-bars container">
         <div class="top-left">
             <top_bar>
-                <span slot="top_left"><slot name="left"></slot></span>
+                <span slot="barcontent"><slot name="left"></slot></span>
             </top_bar>
         </div>
         <div class="top-center">
             <top_bar>
-                <span slot="top_left"><slot name="top_center"></slot></span>
+                <span slot="barcontent"><slot name="top_center"></slot></span>
             </top_bar>
         </div>
         <div class="top-right" >
             <top_bar>
-                <span slot="top_left"><slot name="right"></slot></span>
+                <span slot="barcontent"><slot name="right"></slot></span>
             </top_bar>
         </div>
     </header>
@@ -40,14 +40,20 @@
     .nav-bars {
         display: flex;
         text-align: center;
-        box-shadow: 0 1px 1px rgba(185, 140, 179,1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
         margin-bottom:0;
     }
 
-    .top-left, .top-right {
+    .top-left {
+        width: 60px;
+        font-size: 25px;
+        line-height: 43px;
+        height: 43px;
+        padding-right: 30px;
+    }
+    .top-right{
         width: 60px;
     }
-
     .top-center {
         flex: 1;
         line-height: var(--home-nav-back-height);
@@ -57,6 +63,7 @@
         table-layout: fixed;
         color: rgb(237, 66, 75);
         text-align: center;
+        font-size: 20px;
     }
     .container{
         height: var(--home-nav-back-height);

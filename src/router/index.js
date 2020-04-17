@@ -11,7 +11,11 @@ const Read = () => import("@views/Book/Read/Read-index");
 
 //安装路由插件
 Vue.use(Router)
-
+//路由重复点击问题
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 const routes = [
     {
         path:'/',

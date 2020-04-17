@@ -1,47 +1,30 @@
 <template>
-    <div class="Read-index">
+    <div class="Read-index" @mousemove='updateXY'>
         <header class="Readheader">
             <h1>{{current.chapterName}}</h1>
         </header>
-<!--        <header>-->
-<!--            <el-row class="hide-headdiv">-->
-<!--                <el-col :span="3">-->
-<!--                    <div class="back-link" @click="back_link">-->
-<!--                        <span class="icon iconfont icon-withdraw"></span>-->
-<!--                    </div>-->
-<!--                </el-col>-->
-<!--                <el-col :span="12">-->
-<!--                    <div class="grid-content"></div>-->
-<!--                </el-col>-->
-<!--                <el-col :span="3">-->
-<!--                    <div class="grid-conten">-->
+        <transition name="el-zoom-in-top">
+            <top  class="transition-box" v-if="ishide"></top>
+        </transition>
 
-<!--                    </div>-->
-<!--                </el-col>-->
-<!--                <el-col :span="3">-->
-<!--                    <div class="grid-content"></div>-->
-<!--                </el-col>-->
-<!--                <el-col :span="3">-->
-<!--                    <div class="grid-content">-->
-
-<!--                    </div>-->
-<!--                </el-col>-->
-<!--            </el-row>-->
-<!--        </header>-->
         <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">
             <section class="read-section jsChapterWrapper" v-for=" (item,index) in  content" >
                 <p class="bs-popover-auto">{{item.chapterName}}</p>
                 <div v-html="item.chapterContent"></div>
             </section>
         </scroll>
+        <transition name="el-zoom-in-bottom">
 
+            <footers  class="transition-box" v-if="ishide"></footers>
+        </transition>
     </div>
 </template>
 
 <script>
     import Scroll from "@components/scroll/scroll";
     import {NocontentApi} from '@/network/Novel'
-
+    import  top from "@/views/Book/Read/hide/top"
+    import  footers from "@/views/Book/Read/hide/footer"
     export default {
         name: "Read-index",
         data() {
@@ -50,21 +33,23 @@
                 chid:'',
                 upper:{},
                 lower:{},
-                current:{}
+                current:{},
+                ishide:false
             }
         },
-        components: {Scroll},
+        components: {Scroll,top,footers},
         created() {
             this.chid =this.$route.query.chid
         },
-        mounted() {
+        activated() {
             window.console.log('进入此组建调用')
             this.getNocontent()
             //this.$refs.scroll.scroll.refresh()
+            this.ishide=false;
         },
         methods: {
             contentscroll(position) {
-
+                //this.$refs.scroll.inishFlush()
             },
             pullUpLoad() {
                 this.chid = this.lower.chid;
@@ -77,17 +62,27 @@
                         this.content.push(res.data.content);
                         this.current = res.data.content;
                         this.upper = res.data.upper;
-                        this.lower = res.data.lower;
-                        this.$refs.scroll.scroll.refresh()
-                        this.$refs.scroll.scfinishFlush()
+                        if (res.data.lower != null){
+                            this.lower = res.data.lower;
+                            this.$refs.scroll.refresh()
+                            this.$refs.scroll.inishFlush()
+                            var chid = this.current.chid
+                        }
 
+                        //let query = Object.assign({chid:  chid}, this.$route.query )
+                        //this.$router.push({ query})
                     }
                 })
             },
+            updateXY(e) {
+                var h = document.documentElement.clientHeight || document.body.clientHeight;
+                var y = e.clientY;
+                var baifenbi = y /h *100;
+                if (baifenbi>=25 && baifenbi<=75){
+                   this.ishide = !this.ishide
+                }
 
-            back_link(){
-                window.history.back()
-            }
+            },
         }
     }
 </script>
@@ -126,11 +121,13 @@
     }
     .read-section {
         margin: 0 16px;
+        font-family: "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+        color: rgba(0,0,0,0.8);
     }
 
     .read-section p {
         font-size: 18px;
-        font-family: "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+
     }
 
     .content {
@@ -143,9 +140,5 @@
         height: 44px;
         background-color: #000000;
     }
-    .back-link {
-        color: #ffffff;
-        font-size: 28px;
-        padding-left: 4px;
-    }
+
 </style>

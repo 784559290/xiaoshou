@@ -8,13 +8,12 @@ import ElementUI from 'element-ui'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'element-ui/lib/theme-chalk/index.css';
-
+import '@/common/tool'
 
 import '@assets/css/iconfont/iconfont.js'
 import '@assets/css/iconfont/iconfont.css'
 
-
-
+import 'vue2-animate/dist/vue2-animate.min.css'
 
 
 Vue.use(BootstrapVue)

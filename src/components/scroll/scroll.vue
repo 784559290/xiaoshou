@@ -42,12 +42,12 @@
             //创建插件
             if (this.pullup){
                 var pullUpLoad = {
-                    threshold: 55 // 当上拉距离超过30px时触发 pullingUp 事件
+                    threshold: 300 // 当上拉距离超过30px时触发 pullingUp 事件
                 }
             }else {
                 var pullUpLoad =false
             }
-
+            console.log(pullUpLoad)
             this.scroll = new BScroll(this.$refs.scroll,{
                 probeType:3,
                 click:true,
@@ -69,15 +69,15 @@
         },
         methods: {
             //上拉加载完成以后需要调用一下才可以继续加载
-            scfinishFlush(){
-
-                this.scroll &&  this.scroll.finishFlush()
+            inishFlush(){
+                this.scroll.finishPullUp()
             },
             scroll_top(x=0,y=0,time=600){
-                this.scroll && this.scroll.scrollTo(x,y,time);
+                this.scroll.scrollTo(x,y,time);
             },
             refresh(){
                 //从新刷新
+                console.log(111)
                 this.scroll.refresh();
             },
 

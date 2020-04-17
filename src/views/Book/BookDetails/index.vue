@@ -32,7 +32,7 @@
         <div class="book-layout">
             <img class="pull-left" :src="BookData.coverimg"   alt="">
             <div class="book-cell pull-left">
-                <h2 class="book-title">{{BookData.naName}}</h2>
+                <h2 class="book-title">{{BookData.noName}}</h2>
                 <div class="book-author">
                     <a href="">{{BookData.noNickName}}</a>
                     <span>大神</span>
@@ -141,7 +141,7 @@
                         this.boocklistarr = res.data.reverse()
                         console.log(this.boocklistarr.length)
                         this.maxboocklistarr =this.boocklistarr[0]
-                        this.$refs.scroll.scroll.refresh()
+                        this.$refs.scroll.refresh()
                     }
                 })
 

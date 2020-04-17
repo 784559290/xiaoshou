@@ -37,6 +37,9 @@
         created() {
             console.log(this.boocklist)
         },
+        mounted() {
+            this.$refs.scroll.refresh()
+        },
         methods: {
             contentscroll(position) {
                 this.top = position.y < -500

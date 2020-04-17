@@ -1,7 +1,7 @@
 <template>
     
     <div id='top-bar' class="">
-          <slot  name="top_left"></slot>
+          <slot  name="barcontent"></slot>
     </div>
 </template>
 
