@@ -16,12 +16,15 @@
             <el-col :span="24"><div class="grid-content bg-purple-dark"></div></el-col>
         </el-row>
         <div class="buttondiv">
-            <el-button type="success" class="successbutton" @click="Land"  plain :disabled="!iscliclog"  v-preventReClick >登陆</el-button>
+            <el-button type="success" class="successbutton" @click="Land"  plain :disabled="!iscliclog" >登陆</el-button>
         </div>
     </div>
 </template>
 
 <script>
+    import {postlogin} from "@/network/login";
+
+
     export default {
         name: "loginviue",
         data() {
@@ -38,18 +41,27 @@
         mounted() {
 
         },
-        methods: {},
+        methods: {
+            Land(){
+                var data={name:this.name,password:this.password}
+                postlogin(data).then(res=>{
+                    if (res.status == 0){
+                        this.$store.dispatch('ajax_token',res.data.token)
+                    }else {
+
+                    }
+                })
+            }
+        },
         computed:{
             iscliclog(){
-                if (this.name!="" && this.password != ""){
+                if(this.name!="" && this.password != ""){
                     return true
                 }else {
                     return false
                 }
             },
-            Land(){
-                console.log(11)
-            }
+
         }
     }
 </script>

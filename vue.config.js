@@ -9,6 +9,7 @@ module.exports = {
         config.resolve.alias
             .set('@', resolve('src'))
             .set('@assets',resolve('src/assets'))
+            .set('@network',resolve('src/network'))
             .set('@assetsImg',resolve('src/assets/img'))
             .set('@views',resolve('src/views'))
             .set('@components',resolve('src/components'))

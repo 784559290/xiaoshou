@@ -38,7 +38,7 @@
             console.log(this.boocklist)
         },
         mounted() {
-            this.$refs.scroll.refresh()
+            //this.$refs.scroll.refresh()
         },
         methods: {
             contentscroll(position) {

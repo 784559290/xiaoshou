@@ -107,7 +107,7 @@
                 maxboocklistarr:{}
             }
         },
-        created() {
+        activated() {
 
             this.BookDastAjax()
             this.getCatalog()

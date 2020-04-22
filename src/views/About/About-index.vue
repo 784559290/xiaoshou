@@ -1,18 +1,6 @@
 <template>
     <div id="app">
-        <!--<button class="" @click="users">
-            clicks
-        </button>
-        <button @click="delsts">
-            删除
-        </button>
-        <button @click="steTime">
-            Time
-        </button>
-        <div>
-            {{$store.state.user}}
-            <p>{{userlentgh}}</p>
-        </div>-->
+
 
         <Navtop class="home-nav navbar navbar-fixed-top">
 
