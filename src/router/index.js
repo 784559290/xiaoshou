@@ -8,6 +8,7 @@ const Ranking_index = () => import("@views/Ranking/Ranking-index");
 const Search = () => import("@views/Search/Search");
 const BookDast = () => import("@views/Book/BookDetails/index");
 const Read = () => import("@views/Book/Read/Read-index");
+const login = () => import("@views/About/login/About-login");
 
 //安装路由插件
 Vue.use(Router)
@@ -32,7 +33,7 @@ const routes = [
     },
     {
         path:'/About',
-        component: About_index
+        component: About_index,
     },
     {
         path:'/Sort',
@@ -45,10 +46,16 @@ const routes = [
     {
         path:'/BookDast',
         component: BookDast
-    },{
+    },
+    {
         path:'/Read',
         component: Read
     },
+    {
+        path:'/login',
+        name:'login',
+        component:login,
+    }
 ]
 
 const router = new Router({

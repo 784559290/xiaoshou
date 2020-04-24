@@ -1,9 +1,6 @@
 <template>
     <div id="app">
-
-
         <Navtop class="home-nav navbar navbar-fixed-top">
-
             <span  slot="left" @click=" backlink()">
                 <span>
                      <svg class="icon svg-icon" aria-hidden="true">
@@ -11,22 +8,23 @@
                      </svg>
                 </span>
             </span>
-            <span slot="top_center">登陆</span>
+            <span slot="top_center">
+                个人中心
+            </span>
         </Navtop>
-        <logheide>
-            <div :class="{logheide:logheide==1}" @click="logheide=1" slot="login">账号登陆</div>
-            <div :class="{logheide:logheide==2}" @click="logheide=2"  slot="register">账号注册</div>
-        </logheide>
-        <loginviue></loginviue>
+        <Userdetails></Userdetails>
+        <bookmark></bookmark>
     </div>
 </template>
 
 <script>
 
-    import {mapGetters} from 'vuex'
+    import {GetAbout} from "@/network/user_About";
     import Navtop from '@components/navbar/NavBar'
-    import logheide from "@views/About/logheide";
-    import loginviue from "@views/About/loginviue";
+    import Userdetails from "@views/About/Userdetails";
+    import Bookmark from "@views/About/bookmark";
+
+
     export default {
         name: "About-index",
         data(){
@@ -38,34 +36,23 @@
             }
         },
         components: {
-          Navtop,logheide,loginviue,
+            Bookmark,
+            Userdetails,
+            Navtop
         },
-        create(){
-            this.user()
-        },
-        computed:{
-            ...mapGetters(['userlentgh'])
+        activated(){
+            this.users()
         },
         methods:{
             users(){
-                window.console.log(this.user)
-                this.$store.commit('setdatauser',this.user) //对store里面的数据进行赋值
-
-            },
-            delsts(){
-                this.$store.commit('deletedata','user')
-            },
-            steTime(){//异步修改store 让系统监听
-                const  thar=this
-                var a={zjk:11}
-                setTimeout(()=>{
-                    this.$store.dispatch('Abou_aupa',a)
-                },1000)
+                GetAbout().then(res => {
+                    this.$store.dispatch('ajax_Apilink', res.data.Apiuerl)
+                })
 
             },
             //后退
             backlink(){
-                window.history.back()
+               this.$router.push('/Home')
             },
         }
     }

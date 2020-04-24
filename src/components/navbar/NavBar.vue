@@ -1,7 +1,7 @@
 <template>
 
     <header id='NavBar' class="navbar navbar-fixed-top nav-bars container">
-        <div class="top-left">
+        <div class="top-left" >
             <top_bar>
                 <span slot="barcontent"><slot name="left"></slot></span>
             </top_bar>

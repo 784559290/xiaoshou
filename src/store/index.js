@@ -7,6 +7,7 @@ const  store = new vuex.Store({
     state:{
         user:[],//用户详情
         token:'',
+        Apilink:""
     },
     mutations:{//方法
         setdatauser(state,user){
@@ -14,6 +15,9 @@ const  store = new vuex.Store({
         },
         setdatatoken(state,user){
             vue.set(state,'token',user)
+        },
+        setdataApilink(state,user){
+            vue.set(state,'Apilink',user)
         },
         deletedata(state,data){
             vue.delete(state,data)
@@ -27,6 +31,9 @@ const  store = new vuex.Store({
         },
         ajax_token(context,data){
             context.commit('setdatatoken',data)
+        },
+        ajax_Apilink(context,data){
+            context.commit('setdataApilink',data)
         },
 
 
