@@ -3,12 +3,12 @@
     <div id='Homeslide'>
         <div class="module-slide-ol">
             <div class=" slide-ol"  v-for="(item,index) in recommend">
-                <a class="slide-ol-a" href="">
-                    <img class="slide-ol-img" :src="item.img" alt="">
+                <router-link :to="{path:'/BookDast',query:{noid:item.noid}}" class="slide-ol-a">
+                    <img class="slide-ol-img" :src="$store.state.Apilink+'/storages/coverimg/'+item.coverimg" alt="">
                     <figcaption class="slide-ol-span" >
-                        {{item.name}}
+                        {{item.noName}}
                     </figcaption>
-                </a>
+                </router-link>
             </div>
         </div>
     </div>
@@ -24,10 +24,12 @@
         props:{
             recommend:{
                 type:Array,
-                default:[]
+                default:()=>[],
             }
         },
         created() {
+            window.console.log(333)
+            window.console.log(this.recommend)
         },
         methods: {}
     }

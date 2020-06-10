@@ -55,7 +55,8 @@
                 this.boocklist = this.boocklist.reverse()
             },
             getRead(chid){
-                this.$router.push({path:'/Read',query:{chid:chid}})
+                var noid = this.$route.query.noid;
+                this.$router.push({path:'/Read',query:{chid:chid,noid:noid}})
             }
         }
     }

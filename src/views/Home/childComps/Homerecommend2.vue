@@ -2,9 +2,9 @@
     
     <div id='Homerecommend2'>
         <Hometitle :homttitle="Homttitle"></Hometitle>
-        <Homeclassification :fictionsort="Fictionsort"></Homeclassification>
+        <Homeclassification :fictionsort="Fictionsort"  @sonswitchObj="sonswitch"></Homeclassification>
         <scroll class="content" ref="scroll"  :pullup="false" :scrollX="true">
-            <Homeslide :recommend="recommend"></Homeslide>
+            <Homeslide :recommend="ShowRecommend"></Homeslide>
         </scroll>
     </div>
 </template>
@@ -24,40 +24,34 @@
                     title: "高分小说",
                     Description: ""
                 },
+                ShowRecommend:[],
                 Fictionsort:[
                     '历史军事',
                     '游戏体育',
                     '科幻悬疑',
                 ],
                 recommend: [
-                    {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    },
+
                 ],
             }
         },
         created() {
+            this.ShowRecommend =  this.$store.state.HomeConten.TopBook.cacheLishi
         },
-        methods: {}
+        methods: {
+            sonswitch(index){
+                if (index ===0){
+                    this.ShowRecommend =  this.$store.state.HomeConten.TopBook.cacheLishi
+                }
+                if (index ===1){
+                    this.ShowRecommend =  this.$store.state.HomeConten.TopBook.cacheYouxi
+                }
+                if (index ===2){
+                    this.ShowRecommend =  this.$store.state.HomeConten.TopBook.cacheKehuan
+                }
+
+            },
+        }
     }
 </script>
 

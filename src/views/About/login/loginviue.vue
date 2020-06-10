@@ -29,7 +29,7 @@
 
 <script>
     import {postlogin} from "@/network/login";
-
+    import {Debounce} from "@/common/tool";
 
     export default {
         name: "loginviue",
@@ -48,19 +48,23 @@
             console.log(111)
         },
         methods: {
-            Land() {
-                var data = {name: this.name, password: this.password}
-                postlogin(data).then(res => {
-                    if (res.status === 0) {
-                        this.$store.dispatch('ajax_token', res.data.token)
-                        this.$store.dispatch('Abou_aupa', res.data)
-                        this.$router.push('/About')
-                        console.log('sdsd')
-                    } else {
-
-                    }
-                })
-            }
+            Land:Debounce(function () {{
+                    var data = {name: this.name, password: this.password}
+                    postlogin(data).then(res => {
+                        if (res.status === 0) {
+                            this.$store.dispatch('ajax_token', res.data.token)
+                            this.$store.dispatch('Abou_aupa', res.data)
+                            this.$router.push('/About')
+                            console.log('sdsd')
+                        } else {
+                            this.$message({
+                                message: res.message,
+                                type: 'error'
+                            });
+                        }
+                    })
+                }
+            },400)
         },
         computed: {
             iscliclog() {

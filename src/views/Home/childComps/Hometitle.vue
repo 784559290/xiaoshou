@@ -18,7 +18,6 @@
         },
         props:['homttitle'],
         created() {
-            window.console.log(this.homttitle)
         },
         methods: {}
     }

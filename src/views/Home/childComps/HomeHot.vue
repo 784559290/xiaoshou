@@ -12,21 +12,15 @@
     export default {
         name: "HomeHot",
         components: {Homeslide, Hometitle},
+        props:{
+            recommend:{
+                type:Array,
+                default:()=>[],
+            }
+        },
         data() {
             return {
                 //热门
-                recommend:[
-                    {
-                        name:"王者荣耀",
-                        img:"/img/300.66492253.jpg",
-                    }, {
-                        name:"王者荣耀",
-                        img:"/img/300.66492253.jpg",
-                    }, {
-                        name:"王者荣耀",
-                        img:"/img/300.66492253.jpg",
-                    },
-                ],
                 Hometitle:{
                     title:"热门小说",
                     Description:"站长推荐",
@@ -34,6 +28,7 @@
             }
         },
         created() {
+            console.log(this.recommend)
         },
         methods: {}
     }

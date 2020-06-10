@@ -2,7 +2,7 @@
     <div id="bookmark">
 
         <ul class="infinite-list"  style="overflow:auto">
-            <div class="book-layout" v-for=" (item,index) in bookmarklist " @click="Jumpcontent(item.chid)">
+            <div class="book-layout" v-for=" (item,index) in bookmarklist " @click="Jumpcontent(item.chid,item.noid)">
                 <el-row class="book-layout-border">
                     <el-col :span="5"><img class="book-layout-img"  src="~@/assets/img/home/300.jpg" alt=""></el-col>
                     <el-col :span="19">
@@ -42,8 +42,8 @@
                     this.bookmarklist = res.data;
                 })
             },
-            Jumpcontent(chid){
-                this.$router.push({path:'/Read',query:{chid:chid}})
+            Jumpcontent(chid,noid){
+                this.$router.push({path:'/Read',query:{chid:chid,noid:noid}})
             }
         }
     }

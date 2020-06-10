@@ -4,73 +4,108 @@
             <h1>{{current.chapterName}}</h1>
         </header>
         <transition name="el-zoom-in-top">
-            <top  class="transition-box" v-if="ishide"></top>
+            <top  class="transition-box"  v-if="ishide"></top>
         </transition>
 
-        <scroll class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">
-            <section class="read-section jsChapterWrapper" v-for=" (item,index) in  content" >
-                <p class="bs-popover-auto">{{item.chapterName}}</p>
-                <div v-html="item.chapterContent"></div>
-            </section>
-        </scroll>
+            <scroll  class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">
+                <section class="read-section jsChapterWrapper" v-for=" (item,index) in  content" >
+                    <p class="bs-popover-auto">{{item.chapterName}}</p>
+                    <div v-html="item.chapterContent"></div>
+                </section>
+            </scroll>
+
         <transition name="el-zoom-in-bottom">
 
-            <footers  class="transition-box" v-if="ishide"></footers>
+            <footers  @modifyisbookmark="mainmodifyisbookmark" :NoveCon="{noid:noid,chid:chid}" :isbookmark="isbookmark"   class="transition-box" v-if="ishide"></footers>
         </transition>
     </div>
 </template>
 
 <script>
     import Scroll from "@components/scroll/scroll";
-    import {NocontentApi} from '@/network/Novel'
+    import {NocontentApi,NobookmarkApi} from '@/network/Novel'
     import  top from "@/views/Book/Read/hide/top"
     import  footers from "@/views/Book/Read/hide/footer"
+    import  axios from 'axios'
+    import {Throttle} from "@/common/tool";
+
     export default {
         name: "Read-index",
         data() {
             return {
                 content:[],
                 chid:'',
+                noid:'',
                 upper:{},
                 lower:{},
                 current:{},
-                ishide:false
+                ishide:false,
+                isbookmark:false,
+                shake:true
             }
         },
         components: {Scroll,top,footers},
         created() {
-            this.chid =this.$route.query.chid
         },
         activated() {
-            window.console.log('进入此组建调用')
-            this.getNocontent()
-            //this.$refs.scroll.scroll.refresh()
+            this.content = [];
+            this.upper = [];
+            this.lower = [];
+            this.current = [];
+            this.chid = this.$route.query.chid;
+            this.noid = this.$route.query.noid;
+            this.isbookmarkobj()
             this.ishide=false;
+
         },
         methods: {
+            //查看是否砸书签
+            isbookmarkobj(){
+                var data={chid:this.chid,noid:this.noid}
+                NobookmarkApi(data).then(res => {
+                      if (res.status ==0){
+                          this.isbookmark =true;
+                      }
+                    this.getNocontent()
+                  });
+            },
+            //滑动监听
+
             contentscroll(position) {
-                //this.$refs.scroll.inishFlush()
+                var y  =Math.abs(position.y)
+                var baifenbi = y /position.heights *100;
+                if (baifenbi >= 60 && this.shake){
+                    this.shake =false;
+                    this.chid = this.lower.chid;
+                    this.getNocontent();
+                    this.$refs.scroll.refresh()
+                    this.$refs.scroll.inishFlush()
+                }
+                console.log( baifenbi)
+            },
+            mainmodifyisbookmark(isbookmark){
+                this.isbookmark = isbookmark;
             },
             pullUpLoad() {
-                this.chid = this.lower.chid;
-                this.getNocontent();
             },
             getNocontent(){
-                var data = {chid:this.chid}
+                var data = {chid:this.chid,isbookmark:this.isbookmark}
                 NocontentApi(data).then(res => {
                     if (res.status == 0){
                         this.content.push(res.data.content);
                         this.current = res.data.content;
                         this.upper = res.data.upper;
+
                         if (res.data.lower != null){
                             this.lower = res.data.lower;
                             this.$refs.scroll.refresh()
                             this.$refs.scroll.inishFlush()
+                            this.shake =true;
                             var chid = this.current.chid
                         }
 
-                        //let query = Object.assign({chid:  chid}, this.$route.query )
-                        //this.$router.push({ query})
+                       // let query = Object.assign({chid:  chid}, this.$route.query )
+                       // this.$router.push({ query})
                     }
                 })
             },

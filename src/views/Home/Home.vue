@@ -7,10 +7,12 @@
             <Homeswiper @swiperimageLoad.once="swiperimageLoad" :banner="banner"/>
             <HomeSearch></HomeSearch>
             <TabControl class="Tab-Control"  ref="TabControl"></TabControl>
-            <HomeHot></HomeHot>
+            <!--热门-->
+            <HomeHot :recommend="HomeContent.Host"></HomeHot>
             <Homerecommendation/>
-            <Homeranking/>
-            <Homerecommend2/>
+            <!--热门系列-->
+            <Homeranking :recommend="HomeContent"></Homeranking>
+            <Homerecommend2></Homerecommend2>
             <module>
             </module>
             <!--<img src="666.png" @load="imageLoad">  @load vue事件监听图片加载完成，在滑动插件中执行从新计算高度-->
@@ -26,7 +28,7 @@
     import Homeswiper from "@views/Home/childComps/Homeswiper";
     import scroll from "@components/scroll/scroll";
     import scroll_top from "@components/scroll/scroll_top";
-    import {getHomeMultidata, getHomeMultidata1} from "@/network/home";
+    import {getHomeContent} from "@/network/home";
     import HomeSearch from "@views/Home/childComps/HomeSearch";
     import {debounce} from "@/common/tool";
     import HomeHot from "@views/Home/childComps/HomeHot";
@@ -52,13 +54,14 @@
                 top: false,
                 taboffsetTop: 0,
                 saveY: 0,
-                debounces: null
+                debounces: null,
+                HomeContent:{},
             }
         },
         created() {
             this.getData()
             this.debounces = debounce(()=>{
-                window.console.log('11111')
+
             },500)
         },
         mounted() {//组件初始化完成调用方法
@@ -81,9 +84,9 @@
         },
         methods: {
             getData() {//初始化数据
-                getHomeMultidata().then(res => {
+               /* getHomeMultidata().then(res => {
                     this.banner = res.data.banner.list;
-                })
+                })*/
 
             },
             scroll_top() {
@@ -115,14 +118,21 @@
             //监听轮播组件图片加载完成
             swiperimageLoad() {
                 this.taboffsetTop = this.$refs.TabControl.$el.offsetTop
-                window.console.log(this.taboffsetTop)
+            },
+            //获取首页数据
+            HomeContentObj(){
+                getHomeContent().then(res =>{
+                    this.HomeContent = res.data;
+                    this.$store.dispatch('ajax_HomeConten', res.data)
+                })
             }
         },
         activated() {
             window.console.log('进入此组建调用')
-            //this.
-            //this.$refs.scroll.scroll.scrollTo(0, this.saveY)
+            this.HomeContentObj();
+            this.$refs.scroll.scroll.scrollTo(0, this.saveY)
             this.$refs.scroll.refresh()
+
         },
         deactivated() {
             window.console.log('离开此组建')

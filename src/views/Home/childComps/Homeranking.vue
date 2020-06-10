@@ -3,10 +3,10 @@
         <!--首页title-->
         <Hometitle :homttitle="Homttitle"></Hometitle>
         <!-- 小说选择栏-->
-        <Homeclassification :fictionsort="Fictionsort"></Homeclassification>
+        <Homeclassification :fictionsort="Fictionsort"  @sonswitchObj="sonswitch"></Homeclassification>
         <!--小说推荐循环-->
-        <scroll class="content" ref="scroll"  :pullup="false" :scrollX="true">
-          <Homeslide :recommend="recommend"></Homeslide>
+        <scroll class="content" ref="scroll"   :pullup="false" :scrollX="true">
+          <Homeslide :recommend="ShowRecommend"></Homeslide>
         </scroll>
     </div>
 </template>
@@ -31,35 +31,26 @@
                     '武侠修仙',
                     '都市职场',
                 ],
-                recommend: [
-                    {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    }, {
-                        name: "王者荣耀",
-                        img: "/img/300.jpg",
-                    },
-                ],
+                ShowRecommend:[],
             }
         },
         created() {
+           this.ShowRecommend =  this.$store.state.HomeConten.Qihuan
         },
-        methods: {}
+        methods: {
+            sonswitch(index){
+                if (index ===0){
+                    this.ShowRecommend =  this.$store.state.HomeConten.Qihuan
+                }
+                if (index ===1){
+                    this.ShowRecommend =  this.$store.state.HomeConten.WuXian
+                }
+                if (index ===2){
+                    this.ShowRecommend =  this.$store.state.HomeConten.DoShi
+                }
+
+            },
+        }
     }
 </script>
 

@@ -21,3 +21,12 @@ export function NocontentApi(datas) {
     })
 }
 
+export function NobookmarkApi(datas) {
+    return request({
+        method:'POST',
+        data:datas,
+        url:'/api/bookmark/show',
+    })
+}
+
+

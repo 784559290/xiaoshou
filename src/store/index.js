@@ -7,7 +7,8 @@ const  store = new vuex.Store({
     state:{
         user:[],//用户详情
         token:'',
-        Apilink:""
+        Apilink:"http://querylist.com",
+        HomeConten:{},
     },
     mutations:{//方法
         setdatauser(state,user){
@@ -15,6 +16,9 @@ const  store = new vuex.Store({
         },
         setdatatoken(state,user){
             vue.set(state,'token',user)
+        },
+        setdataHomeConten(state,user){
+            vue.set(state,'HomeConten',user)
         },
         setdataApilink(state,user){
             vue.set(state,'Apilink',user)
@@ -35,7 +39,9 @@ const  store = new vuex.Store({
         ajax_Apilink(context,data){
             context.commit('setdataApilink',data)
         },
-
+        ajax_HomeConten(context,data){
+            context.commit('setdataHomeConten',data)
+        },
 
     },
     getters:{//计算熟悉

@@ -24,6 +24,7 @@
             H3active(index,item){
                 if (this.active !== index){
                     this.active = index
+                    this.$emit('sonswitchObj',index)
                 }
 
             }

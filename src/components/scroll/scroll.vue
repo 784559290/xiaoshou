@@ -1,7 +1,7 @@
 <template>
     
     <div class='wrapper' ref="scroll" >
-        <div class="content">
+        <div class="content" ref="contents">
             <slot></slot>
         </div>
     </div>
@@ -51,7 +51,7 @@
             this.scroll = new BScroll(this.$refs.scroll,{
                 probeType:3,
                 click:true,
-                pullUpLoad: pullUpLoad,//是否监听上拉事件
+                pullUpLoad: true,//是否监听上拉事件
                 scrollX:this.scrollX, //开启横向滚动
                 freeScroll:this.freeScroll,
                 eventPassthrough:this.eventPassthrough, //开启原生横向滚动
@@ -59,6 +59,8 @@
             })
             //2监听滚动事件  把数据传递到父组件
             this.scroll.on('scroll',(position)=>{
+                 var height= this.$refs.contents.offsetHeight;
+                position.heights = height
                 this.$emit('scroll',position)
             })
             //3监听上拉事件

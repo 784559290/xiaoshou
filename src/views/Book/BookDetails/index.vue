@@ -108,7 +108,7 @@
             }
         },
         activated() {
-
+            this.noid = this.$route.query.noid;
             this.BookDastAjax()
             this.getCatalog()
         },

@@ -2,11 +2,13 @@ import  axios from 'axios'
 import router from "@/router";
 import store from "@/store";
 
-//axios.defaults.headers.Authorization='Bearer '+ store.state.token;
+import Qs from 'qs'
+axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+axios.defaults.transformRequest = [obj => Qs.stringify(obj)]
 
 export function request(config) {
     const instance = axios.create({
-        baseURL:'http://querylist.com',
+        baseURL:'',
         timeout:5000,
     })
 
