@@ -6,13 +6,13 @@
         <transition name="el-zoom-in-top">
             <top  class="transition-box"  v-if="ishide"></top>
         </transition>
-
-            <scroll  class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">
-                <section class="read-section jsChapterWrapper" v-for=" (item,index) in  content" >
+        <v-touch v-on:swipeleft="swiperleft" v-on:swiperight="swiperright" class="wrapper">
+<!--            <scroll  class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">-->
+                <section class="read-section jsChapterWrapper" v-for=" (item,index) in  content"  style="transform: translateX(0);">
                     <p class="bs-popover-auto">{{item.chapterName}}</p>
-                    <div v-html="item.chapterContent"></div>
+                    <p v-html="item.chapterContent"></p>
                 </section>
-            </scroll>
+        </v-touch>
 
         <transition name="el-zoom-in-bottom">
 
@@ -28,6 +28,7 @@
     import  footers from "@/views/Book/Read/hide/footer"
     import  axios from 'axios'
     import {Throttle} from "@/common/tool";
+    import AnyTouch from 'any-touch';
 
     export default {
         name: "Read-index",
@@ -41,11 +42,36 @@
                 current:{},
                 ishide:false,
                 isbookmark:false,
-                shake:true
+                shake:true,
+                AnyTouch:'',
+                acceleration:3600
             }
         },
         components: {Scroll,top,footers},
-        created() {
+        mounted() {
+            this.AnyTouch = new AnyTouch(this.$el);
+
+
+
+            // 拖拽开始
+            this.AnyTouch.on('panstart', (ev) => {
+               // this.move(ev);
+                console.log(' 拖拽开始')
+            });
+
+            // 拖拽中
+            this.AnyTouch.on('panmove', (ev) => {
+                //this.move(ev);
+                console.log(' panmove')
+            });
+
+            // 快速滑动
+            this.AnyTouch.on('swipe', (ev) => {
+                this.decelerate(ev);
+                console.log('快速滑动')
+            });
+
+
         },
         activated() {
             this.content = [];
@@ -78,8 +104,8 @@
                     this.shake =false;
                     this.chid = this.lower.chid;
                     this.getNocontent();
-                    this.$refs.scroll.refresh()
-                    this.$refs.scroll.inishFlush()
+                    //this.$refs.scroll.refresh()
+                    //this.$refs.scroll.inishFlush()
                 }
                 console.log( baifenbi)
             },
@@ -98,8 +124,6 @@
 
                         if (res.data.lower != null){
                             this.lower = res.data.lower;
-                            this.$refs.scroll.refresh()
-                            this.$refs.scroll.inishFlush()
                             this.shake =true;
                             var chid = this.current.chid
                         }
@@ -118,7 +142,62 @@
                 }
 
             },
-        }
+            /**
+             * 左滑动
+             */
+            swiperleft(){
+                console.log(1)
+            },
+            /**
+             * 右滑动
+             */
+            swiperright(){
+                console.log(2)
+            },
+
+            decelerate(ev) {
+                const directionSign = { up: -1, right: 1, down: 1, left: -1 }[
+                    ev.direction
+                    ];
+
+                // Top? | Left?
+                let SCROLL_SUFFIX = 'Top';
+                // x ? | y?
+                let AXIS_SUFFIX = 'Y';
+                if (ev.velocityX > ev.velocityY) {
+                    SCROLL_SUFFIX = 'Left';
+                    AXIS_SUFFIX = 'X';
+                }
+
+                // 减速时间, 单位ms
+                // t = (v₂ - v₁) / a
+                const velocity = ev[`velocity${AXIS_SUFFIX}`];
+                this.transitionDuration = Math.round(
+                    ((velocity * 1000) / this.acceleration) * 1000
+                );
+
+                // 滑动距离
+                // s = (v₂² - v₁²) / (2 * a)
+                const scrollAxis = `scroll${SCROLL_SUFFIX}`;
+                this[scrollAxis] +=
+                    directionSign *
+                    Math.round(
+                        Math.pow(velocity * 1000, 2) / (2 * this.acceleration)
+                    );
+            },
+            /**
+             * 移动body
+             * @param {Object} 拖拽产生的数据
+             *  @param {Number} deltaX: x轴位移变化
+             *  @param {Number} deltaY: y轴位移变化
+             */
+            move({ deltaX, deltaY }, transitionDuration = 0) {
+                this.transitionDuration = transitionDuration;
+                this.scrollLeft += deltaX;
+                this.scrollTop += deltaY;
+
+
+            }
     }
 </script>
 
@@ -149,9 +228,19 @@
     }
 
     .jsChapterWrapper{
-/*
+        overflow: visible;
+        background-size: 100%;
+        height: 100%;
+        columns: calc(100vw - 32px) 1;
+        column-gap: 16px;
+    }
+    .wrapper{
+
+        height: 100%;
+
+    }
+    wrapper p{
         background: url("~@assets/img/Book/skin-default.e5975.jpg") no-repeat center top;
-*/
         background-size: 100%;
     }
     .read-section {

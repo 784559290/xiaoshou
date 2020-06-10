@@ -15,6 +15,9 @@ import '@assets/css/iconfont/iconfont.css'
 
 import 'vue2-animate/dist/vue2-animate.min.css'
 
+//vue监听元素滑动插件
+import VueTouch from 'vue-touch'
+Vue.use(VueTouch, {name: 'v-touch'})
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
