@@ -1,21 +1,19 @@
 <template>
-    <div class="Read-index" @mousemove='updateXY'>
+    <div class="Read-index" @mousemove='updateXY' >
         <header class="Readheader">
             <h1>{{current.chapterName}}</h1>
         </header>
         <transition name="el-zoom-in-top">
             <top  class="transition-box"  v-if="ishide"></top>
         </transition>
-        <v-touch v-on:swipeleft="swiperleft" v-on:swiperight="swiperright" class="wrapper">
-<!--            <scroll  class="content" ref="scroll" @scroll="contentscroll" :pullup="true" @pullUpLoad="pullUpLoad">-->
-                <section class="read-section jsChapterWrapper" v-for=" (item,index) in  content"  style="transform: translateX(0);">
+        <v-touch v-on:swipeleft="swiperleft" v-on:swiperight="swiperright"  class="wrapper read-section " >
+                <section class="jsChapterWrapper" v-for=" (item,index) in  content"  :style="{transform: 'translateX('+translateX+'px)'}">
                     <p class="bs-popover-auto">{{item.chapterName}}</p>
-                    <p v-html="item.chapterContent"></p>
+                    <p v-html="item.chapterContent" id="sectionsW" ref="sectionsW"></p>
                 </section>
         </v-touch>
 
         <transition name="el-zoom-in-bottom">
-
             <footers  @modifyisbookmark="mainmodifyisbookmark" :NoveCon="{noid:noid,chid:chid}" :isbookmark="isbookmark"   class="transition-box" v-if="ishide"></footers>
         </transition>
     </div>
@@ -44,24 +42,28 @@
                 isbookmark:false,
                 shake:true,
                 AnyTouch:'',
-                acceleration:3600
+                acceleration:3600,
+                scrollLeft:0,
+                scrollTop:0,
+                transitionDuration:300,
+                translateX:0,
+                defaultX:0
             }
         },
         components: {Scroll,top,footers},
         mounted() {
             this.AnyTouch = new AnyTouch(this.$el);
-
-
-
+            var w = document.documentElement.clientWidth || document.body.clientWidth;
+           this.defaultX =w -16.001
             // 拖拽开始
             this.AnyTouch.on('panstart', (ev) => {
-               // this.move(ev);
+                this.move(ev);
                 console.log(' 拖拽开始')
             });
 
             // 拖拽中
             this.AnyTouch.on('panmove', (ev) => {
-                //this.move(ev);
+                this.move(ev);
                 console.log(' panmove')
             });
 
@@ -86,77 +88,88 @@
         },
         methods: {
             //查看是否砸书签
-            isbookmarkobj(){
-                var data={chid:this.chid,noid:this.noid}
+            isbookmarkobj() {
+                var data = {chid: this.chid, noid: this.noid}
                 NobookmarkApi(data).then(res => {
-                      if (res.status ==0){
-                          this.isbookmark =true;
-                      }
+                    if (res.status == 0) {
+                        this.isbookmark = true;
+                    }
                     this.getNocontent()
-                  });
+                });
             },
             //滑动监听
 
             contentscroll(position) {
-                var y  =Math.abs(position.y)
-                var baifenbi = y /position.heights *100;
-                if (baifenbi >= 60 && this.shake){
-                    this.shake =false;
+                var y = Math.abs(position.y)
+                var baifenbi = y / position.heights * 100;
+                if (baifenbi >= 60 && this.shake) {
+                    this.shake = false;
                     this.chid = this.lower.chid;
                     this.getNocontent();
-                    //this.$refs.scroll.refresh()
-                    //this.$refs.scroll.inishFlush()
                 }
-                console.log( baifenbi)
+                console.log(baifenbi)
             },
-            mainmodifyisbookmark(isbookmark){
+            mainmodifyisbookmark(isbookmark) {
                 this.isbookmark = isbookmark;
             },
             pullUpLoad() {
             },
-            getNocontent(){
-                var data = {chid:this.chid,isbookmark:this.isbookmark}
+            getNocontent() {
+                var data = {chid: this.chid, isbookmark: this.isbookmark}
                 NocontentApi(data).then(res => {
-                    if (res.status == 0){
+                    if (res.status == 0) {
                         this.content.push(res.data.content);
                         this.current = res.data.content;
                         this.upper = res.data.upper;
 
-                        if (res.data.lower != null){
+                        if (res.data.lower != null) {
                             this.lower = res.data.lower;
-                            this.shake =true;
+                            this.shake = true;
                             var chid = this.current.chid
                         }
 
-                       // let query = Object.assign({chid:  chid}, this.$route.query )
-                       // this.$router.push({ query})
+                        // let query = Object.assign({chid:  chid}, this.$route.query )
+                        // this.$router.push({ query})
                     }
                 })
             },
             updateXY(e) {
+
                 var h = document.documentElement.clientHeight || document.body.clientHeight;
                 var y = e.clientY;
-                var baifenbi = y /h *100;
-                if (baifenbi>=25 && baifenbi<=75){
-                   this.ishide = !this.ishide
+                var baifenbi = y / h * 100;
+                console.log(baifenbi)
+                if (baifenbi >= 25 && baifenbi <= 75) {
+                    this.ishide = !this.ishide
                 }
 
             },
             /**
              * 左滑动
              */
-            swiperleft(){
-                console.log(1)
+            swiperleft() {
+                console.log(document.getElementById('sectionsW').scrollWidth)
+                this.translateX-=this.defaultX;
             },
             /**
              * 右滑动
              */
-            swiperright(){
-                console.log(2)
+            swiperright() {
+                console.log(this.translateX)
+                if (-this.translateX > 0){
+                    if (-this.translateX < this.defaultX){
+                        this.translateX = 0
+                    }else {
+                        this.translateX+=this.defaultX;
+                    }
+                }else {
+                    this.translateX = 0
+                }
+
             },
 
             decelerate(ev) {
-                const directionSign = { up: -1, right: 1, down: 1, left: -1 }[
+                const directionSign = {up: -1, right: 1, down: 1, left: -1}[
                     ev.direction
                     ];
 
@@ -191,13 +204,14 @@
              *  @param {Number} deltaX: x轴位移变化
              *  @param {Number} deltaY: y轴位移变化
              */
-            move({ deltaX, deltaY }, transitionDuration = 0) {
+            move({deltaX, deltaY}, transitionDuration = 0) {
                 this.transitionDuration = transitionDuration;
                 this.scrollLeft += deltaX;
                 this.scrollTop += deltaY;
-
+                console.log(deltaX)
 
             }
+        }
     }
 </script>
 
@@ -232,7 +246,7 @@
         background-size: 100%;
         height: 100%;
         columns: calc(100vw - 32px) 1;
-        column-gap: 16px;
+        /*column-gap: 16px;*/
     }
     .wrapper{
 
