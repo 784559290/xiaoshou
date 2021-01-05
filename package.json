@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "any-touch": "^0.7.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "better-scroll": "^1.15.2",
     "bootstrap": "^3.4.1",
     "bootstrap-vue": "^2.1.0",
